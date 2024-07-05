@@ -10,7 +10,17 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@pinia/nuxt": "^0.5.1",
+    "@vueuse/nuxt": "^10.11.0",
+    "axios": "^1.7.2",
     "nuxt": "^3.12.3",
+    "pinia": "^2.1.7",
+    "vite-plugin-vuetify": "^2.0.3",
+    "vue": "latest",
+    "vuetify": "^3.6.11"
+  },
+  "overrides": {
     "vue": "latest"
   }
 }
