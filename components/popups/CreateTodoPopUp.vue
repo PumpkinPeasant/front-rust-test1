@@ -7,9 +7,18 @@ const router = useRouter();
 const title = ref('')
 const isActive = ref(false)
 
+function closeDialog() {
+  clear();
+  isActive.value = false;
+}
+
+function clear() {
+  title.value = '';
+}
+
 async function createTodo() {
   let id = await listStore.createList(title.value)
-  isActive.value = false;
+  closeDialog();
   await router.push(`todo/${id}`);
 }
 
@@ -33,6 +42,7 @@ async function createTodo() {
 
         <v-card-text>
           <v-text-field
+              @keydown.enter="createTodo"
               v-model="title"
               label="Название списка"
               variant="outlined"/>
@@ -42,7 +52,7 @@ async function createTodo() {
 
           <v-btn
               text="Закрыть"
-              @click="isActive = false"
+              @click="closeDialog"
           ></v-btn>
           <v-btn
               variant="tonal"

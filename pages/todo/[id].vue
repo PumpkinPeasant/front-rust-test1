@@ -77,7 +77,7 @@ onBeforeMount(() => {
       <add-item
           @submit="add"
           v-model:isActive="toggleAddItem"
-          v-show="toggleAddItem"/>
+          v-if="toggleAddItem"/>
       <div v-if="!toggleAddItem" class="d-flex justify-center">
         <v-btn
             @click="toggleAddItem = !toggleAddItem"

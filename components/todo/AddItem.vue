@@ -5,6 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-text-field
+          @keydown.enter="submit"
           v-model="title"
           variant="outlined"
           label="Название"/>
@@ -17,7 +18,7 @@
           @click="isActive = false"
       ></v-btn>
       <v-btn
-          @click="buttonClick"
+          @click="submit"
           variant="tonal"
           text="Сохранить"
       ></v-btn>
@@ -31,7 +32,7 @@ const title = ref('')
 
 const emit = defineEmits(['submit'])
 
-function buttonClick() {
+function submit() {
   emit('submit', title.value)
 }
 </script>
