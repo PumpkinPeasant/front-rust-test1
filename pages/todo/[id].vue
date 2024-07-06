@@ -43,19 +43,23 @@ onBeforeMount(() => {
            variant="tonal"
            @click="goBack"/>
     <v-window class="d-flex justify-center pa-5">
-      <v-card
-          min-width="400px"
-          class="d-flex justify-space-between align-center pa-2 mb-3"
-          v-for="(item, index) in listStore.items" :key="index">
-        <v-card-title>
-          {{ item.title }}
-        </v-card-title>
-        <v-checkbox
-            @update:modelValue="checkItem(item.id, !item.checked)"
-            color="primary"
-            hide-details
-            v-model="item.checked"/>
-      </v-card>
+      <div class="d-flex align-center ga-2 mb-3 ">
+        <v-card
+            @click="checkItem(item.id, !item.checked)"
+            min-width="400px"
+            class="d-flex justify-space-between align-center pa-2"
+            v-for="(item, index) in listStore.items" :key="index">
+          <v-card-title>
+            {{ item.title }}
+          </v-card-title>
+          <v-checkbox
+              @update:modelValue="checkItem(item.id, !item.checked)"
+              color="primary"
+              hide-details
+              v-model="item.checked"/>
+        </v-card>
+        <v-btn color="red" variant="text" icon="mdi-delete"/>
+      </div>
       <add-item
           @submit="add"
           v-model:isActive="toggleAddItem"
