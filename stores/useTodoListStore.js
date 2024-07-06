@@ -26,10 +26,19 @@ export const useTodoListStore = defineStore("list", () => {
         return listId;
     }
 
+    async function addItem(listId, title) {
+        await axios.post(`http://localhost:8080/list/${listId}/create_item`,
+            {
+                'title': title
+            }
+        )
+    }
+
     return {
         getAllLists,
         getListItems,
         createList,
+        addItem,
         items,
         todos
     }
