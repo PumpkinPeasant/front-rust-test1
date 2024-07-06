@@ -43,12 +43,15 @@ onBeforeMount(() => {
            variant="tonal"
            @click="goBack"/>
     <v-window class="d-flex justify-center pa-5">
-      <div class="d-flex align-center ga-2 mb-3 ">
+      <h1 class="text-center mb-3">{{ listStore.listData.title }}</h1>
+      <div
+          v-for="(item, index) in listStore.listData.items" :key="index"
+          class="d-flex align-center ga-2 mb-3">
+        <v-chip rounded variant="text">{{ index + 1 }}</v-chip>
         <v-card
             @click="checkItem(item.id, !item.checked)"
             min-width="400px"
-            class="d-flex justify-space-between align-center pa-2"
-            v-for="(item, index) in listStore.items" :key="index">
+            class="d-flex justify-space-between align-center pa-2">
           <v-card-title>
             {{ item.title }}
           </v-card-title>
@@ -58,7 +61,7 @@ onBeforeMount(() => {
               hide-details
               v-model="item.checked"/>
         </v-card>
-        <v-btn color="red" variant="text" icon="mdi-delete"/>
+        <v-btn color="red" size="small" variant="text" icon="mdi-delete"/>
       </div>
       <add-item
           @submit="add"

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const useTodoListStore = defineStore("list", () => {
     const todos = ref([]);
-    const items = ref([]);
+    const listData = ref([]);
 
     async function getAllLists() {
         await axios.get('http://localhost:8080/lists')
@@ -11,7 +11,7 @@ export const useTodoListStore = defineStore("list", () => {
 
     async function getListItems(id) {
         await axios.get(`http://localhost:8080/list/${id}/items`)
-            .then(response => items.value = response.data)
+            .then(response => listData.value = response.data)
     }
 
     async function createList(title) {
@@ -48,7 +48,7 @@ export const useTodoListStore = defineStore("list", () => {
         createList,
         addItem,
         checkItem,
-        items,
+        listData,
         todos
     }
 })
