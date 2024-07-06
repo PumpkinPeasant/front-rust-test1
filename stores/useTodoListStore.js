@@ -42,12 +42,17 @@ export const useTodoListStore = defineStore("list", () => {
         )
     }
 
+    async function deleteItem(listId, itemId) {
+        await axios.delete(`http://localhost:8080/list/${listId}/items/${itemId}/delete`)
+    }
+
     return {
         getAllLists,
         getListItems,
         createList,
         addItem,
         checkItem,
+        deleteItem,
         listData,
         todos
     }

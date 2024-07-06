@@ -26,6 +26,12 @@ async function checkItem(itemId: number, checked: boolean) {
   });
 }
 
+async function deleteItem(itemId: number) {
+  await listStore.deleteItem(id.value, itemId).then(() => {
+    getItems(id.value);
+  });
+}
+
 function goBack() {
   router.push(`/`);
 }
@@ -61,7 +67,12 @@ onBeforeMount(() => {
               hide-details
               v-model="item.checked"/>
         </v-card>
-        <v-btn color="red" size="small" variant="text" icon="mdi-delete"/>
+        <v-btn
+            @click="deleteItem(item.id)"
+            color="red"
+            size="small"
+            variant="text"
+            icon="mdi-delete"/>
       </div>
       <add-item
           @submit="add"
