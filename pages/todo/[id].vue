@@ -90,7 +90,6 @@ onBeforeMount(() => {
       </div>
     </v-window>
   </div>
-
 </template>
 
 <style scoped lang="scss">
