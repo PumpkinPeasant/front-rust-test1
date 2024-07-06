@@ -20,6 +20,12 @@ async function add(title: String) {
   });
 }
 
+async function checkItem(itemId: number, checked: boolean) {
+  await listStore.checkItem(id.value, itemId, checked).then(() => {
+    getItems(id.value);
+  });
+}
+
 function goBack() {
   router.push(`/`);
 }
@@ -45,8 +51,10 @@ onBeforeMount(() => {
           {{ item.title }}
         </v-card-title>
         <v-checkbox
+            @update:modelValue="checkItem(item.id, !item.checked)"
+            color="primary"
             hide-details
-            :value="item.checked"/>
+            v-model="item.checked"/>
       </v-card>
       <add-item
           @submit="add"

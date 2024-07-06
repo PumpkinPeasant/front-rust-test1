@@ -34,11 +34,20 @@ export const useTodoListStore = defineStore("list", () => {
         )
     }
 
+    async function checkItem(listId, itemId, checked) {
+        await axios.put(`http://localhost:8080/list/${listId}/items/${itemId}`,
+            {
+                'checked': checked
+            }
+        )
+    }
+
     return {
         getAllLists,
         getListItems,
         createList,
         addItem,
+        checkItem,
         items,
         todos
     }
