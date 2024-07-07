@@ -5,8 +5,11 @@
             :ripple="!isEditActive"
             :key="index"
             min-width="400px">
-      <v-card-title v-if="!isEditActive">
+      <v-card-title class="d-flex justify-space-between" v-if="!isEditActive">
         {{ todo.title }}
+        <v-chip :color="todo.checked_count === todo.total_count && todo.total_count ? 'success': ''">
+          {{ todo.checked_count }} / {{ todo.total_count }}
+        </v-chip>
       </v-card-title>
       <v-text-field
           v-model="newTitle"
