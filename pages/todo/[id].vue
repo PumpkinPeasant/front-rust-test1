@@ -58,7 +58,12 @@ onBeforeMount(() => {
            variant="tonal"
            @click="goBack"/>
     <v-window class="d-flex justify-center pa-5">
-      <h1 class="text-center mb-3">{{ listStore.listData.title }}</h1>
+      <h1 class="text-center mb-3">
+        {{ listStore.listData.title }}
+        <v-chip :color="listStore.listData.checked_count === listStore.listData.total_count && listStore.listData.total_count ? 'success': ''">
+          {{ listStore.listData.checked_count }} / {{ listStore.listData.total_count }}
+        </v-chip>
+      </h1>
       <item-card
           @check="checkItem"
           @delete="deleteItem"
