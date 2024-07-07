@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useTodoListStore} from "~/stores/useTodoListStore";
 import AddItem from "~/components/todo/AddItem.vue";
+import ItemCard from "~/components/todo/ItemCard.vue";
 
 const router = useRouter();
 const listStore = useTodoListStore();
@@ -20,8 +21,8 @@ async function add(title: String) {
   });
 }
 
-async function checkItem(itemId: number, checked: boolean) {
-  await listStore.checkItem(id.value, itemId, checked).then(() => {
+async function checkItem(args: object) {
+  await listStore.checkItem(id.value, args.id, args.checked).then(() => {
     getItems(id.value);
   });
 }
@@ -31,6 +32,14 @@ async function deleteItem(itemId: number) {
     getItems(id.value);
   });
 }
+
+async function editItem(args: object) {
+  await listStore.editItem(id.value, args.id, args.title)
+      .then(() => {
+        getItems(id.value);
+      });
+}
+
 
 function goBack() {
   router.push(`/`);
@@ -50,30 +59,14 @@ onBeforeMount(() => {
            @click="goBack"/>
     <v-window class="d-flex justify-center pa-5">
       <h1 class="text-center mb-3">{{ listStore.listData.title }}</h1>
-      <div
-          v-for="(item, index) in listStore.listData.items" :key="index"
-          class="d-flex align-center ga-2 mb-3">
-        <v-chip rounded variant="text">{{ index + 1 }}</v-chip>
-        <v-card
-            @click="checkItem(item.id, !item.checked)"
-            min-width="400px"
-            class="d-flex justify-space-between align-center pa-2">
-          <v-card-title>
-            {{ item.title }}
-          </v-card-title>
-          <v-checkbox
-              @update:modelValue="checkItem(item.id, !item.checked)"
-              color="primary"
-              hide-details
-              v-model="item.checked"/>
-        </v-card>
-        <v-btn
-            @click="deleteItem(item.id)"
-            color="red"
-            size="small"
-            variant="text"
-            icon="mdi-delete"/>
-      </div>
+      <item-card
+          @check="checkItem"
+          @delete="deleteItem"
+          @edit="editItem"
+          :item="item"
+          :index="index"
+          v-for="(item, index) in listStore.listData.items"
+          :key="index"/>
       <add-item
           @submit="add"
           v-model:isActive="toggleAddItem"

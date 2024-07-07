@@ -26,6 +26,22 @@ export const useTodoListStore = defineStore("list", () => {
         return listId;
     }
 
+    async function editList(listId, title) {
+        await axios.put(`http://localhost:8080/list/${listId}/edit`,
+            {
+                'title': title
+            }
+        )
+    }
+
+    async function editItem(listId, itemId, title) {
+        await axios.put(`http://localhost:8080/list/${listId}/items/${itemId}/edit`,
+            {
+                'title': title
+            }
+        )
+    }
+
     async function addItem(listId, title) {
         await axios.post(`http://localhost:8080/list/${listId}/create_item`,
             {
@@ -54,7 +70,9 @@ export const useTodoListStore = defineStore("list", () => {
         getAllLists,
         getListItems,
         createList,
+        editList,
         addItem,
+        editItem,
         checkItem,
         deleteItem,
         deleteList,
