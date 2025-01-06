@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
+import AppHeader from "@/components/UI/AppHeader.vue";
 </script>
 
 <template>
   <v-app>
+    <app-header/>
     <v-main>
       <slot/>
     </v-main>
