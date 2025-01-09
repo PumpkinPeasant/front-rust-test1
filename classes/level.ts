@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 class Level {
 
@@ -6,6 +7,7 @@ class Level {
     camera: THREE.PerspectiveCamera
     renderer: THREE.WebGLRenderer
     canvas: HTMLCanvasElement
+    cameraControls: OrbitControls
 
     ambientLight: THREE.AmbientLight
 
@@ -14,10 +16,11 @@ class Level {
 
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.z = 5; // Устанавливаем позицию камеры
-
         this.canvas = canvas
         this.renderer = new THREE.WebGLRenderer({canvas})
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+        this.cameraControls = new OrbitControls(this.camera, this.renderer.domElement)
 
         this.ambientLight = new THREE.AmbientLight(0x707070)
         this.scene.add(this.ambientLight)
