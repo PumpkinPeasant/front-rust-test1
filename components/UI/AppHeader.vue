@@ -1,17 +1,16 @@
 <template>
 <v-app-bar>
-  <v-app-bar-title text="The Sugar Museum"/>
+  <v-app-bar-title text="The Sugar Museum" @click="router.push('/')"/>
   <v-spacer/>
   <v-btn text="Добавить"
   prepend-icon="mdi-plus"/>
-  <v-btn icon="mdi-account"/>
+  <v-btn @click="router.push('/profile')" icon="mdi-account"/>
 </v-app-bar>
 </template>
 
-<script>
-export default {
-  name: "AppHeader"
-}
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
 </script>
 
 <style scoped>

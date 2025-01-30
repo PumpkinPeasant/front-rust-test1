@@ -22,4 +22,13 @@ export default defineNuxtConfig({
       },
     },
   },
+  routeRules: {
+    "/proxy/**": { proxy: process.env.LEXA_BASE_URL },
+    "/collection/proxy/**": { proxy: process.env.LEXA_BASE_URL },
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.LEXA_BASE_URL
+    }
+  }
 })
