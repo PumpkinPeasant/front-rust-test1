@@ -1,5 +1,5 @@
 <template>
-  <v-btn @click="go" variant="text" icon="mdi-chevron-left" />
+  <v-btn color="white" @click="go" variant="text" icon="mdi-chevron-left" />
 </template>
 
 <script setup>

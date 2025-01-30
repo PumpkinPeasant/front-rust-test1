@@ -17,7 +17,8 @@ onMounted(() => {
 <template>
   <div class="pa-5">
     <v-card class="pa-4">
-      <v-card-title>
+      <v-card-title class="d-flex align-center ga-2">
+        <back-button/>
         {{ collectionStore.currentCollection.name }}
       </v-card-title>
       <sugar-bag-card
