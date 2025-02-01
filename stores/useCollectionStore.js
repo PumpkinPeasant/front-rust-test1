@@ -7,7 +7,9 @@ export const useCollectionStore = defineStore("collection", () => {
     async function createCollection(name) {
         await axios.post('proxy/Collection/Create',
             {
-                'name': name,
+                "createCollectionOptions": {
+                    'name': name,
+                }
             }
         ).then(response => {
             getAllCollections();
