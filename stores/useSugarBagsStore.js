@@ -2,13 +2,17 @@ import axios from "axios";
 
 export const useSugarBagsStore = defineStore("sugarbags", () => {
 
-    async function createItem(name, picture) {
+    async function createSugarBag(name, picture) {
         await axios.post('proxy/SugarBags/Create',
+
             {
-                'name': name,
-                'picture': picture,
+                "createSugarBagOptions": {
+                    'name': name,
+                    'picture': picture,
+                }
             }
         ).then(response => {
+
         })
     }
 
@@ -19,7 +23,7 @@ export const useSugarBagsStore = defineStore("sugarbags", () => {
         return sugarBag;
     }
 
-    async function getSugarBagsPage(){
+    async function getSugarBagsPage() {
         let sugarBagsPage = null;
         await axios.get('proxy/SugarBags/GetPage?skip=0&limit=100')
             .then(response => sugarBagsPage = response.data)
@@ -27,7 +31,7 @@ export const useSugarBagsStore = defineStore("sugarbags", () => {
     }
 
     return {
-        createItem,
+        createSugarBag,
         getSugarBag,
         getSugarBagsPage
     }

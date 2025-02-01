@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SugarBagCard from "~/components/general/SugarBagCard.vue";
-
 const photoSwiper = ref(null)
 const swiper = useSwiper(photoSwiper)
 

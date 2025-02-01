@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import {useSugarBagsStore} from "~/stores/useSugarBagsStore";
-import { base64 } from "~/utils/base64";
+import {base64} from "~/utils/base64";
+import {usePicturesStore} from "~/stores/usePicturesStore";
 
 const props = defineProps({
   id: {type: String, required: true},
 });
 
 const sugarBagInfo = ref(null);
+const sugarBagPicture = ref<string | null>('')
 const sugarBagsStore = useSugarBagsStore();
+const picturesStore = usePicturesStore();
 
 async function getSugarBag() {
-  sugarBagInfo.value = await sugarBagsStore.getSugarBag(props.id);
+  await sugarBagsStore.getSugarBag(props.id).then(async (response) => {
+    sugarBagInfo.value = response;
+    await picturesStore.getPicture(sugarBagInfo.value?.pictureModelId).then((response) => {
+          sugarBagPicture.value = response.base64;
+        })
+  });
+
 }
 
 onMounted(() => {
@@ -28,8 +37,8 @@ onMounted(() => {
     </v-card-subtitle>
     <v-card-text>
       <img
-          v-if="sugarBagInfo?.picture"
-          :src="`data:image/jpeg;base64,${sugarBagInfo.picture}`"
+          v-if="!!sugarBagPicture"
+          :src="`data:image/jpeg;base64,${sugarBagPicture}`"
           alt="Sugar Bag Image"
           style="max-width: 300px;"
       />
