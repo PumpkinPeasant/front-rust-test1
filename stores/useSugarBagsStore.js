@@ -19,8 +19,16 @@ export const useSugarBagsStore = defineStore("sugarbags", () => {
         return sugarBag;
     }
 
+    async function getSugarBagsPage(){
+        let sugarBagsPage = null;
+        await axios.get('proxy/SugarBags/GetPage?skip=0&limit=100')
+            .then(response => sugarBagsPage = response.data)
+        return sugarBagsPage;
+    }
+
     return {
         createItem,
-        getSugarBag
+        getSugarBag,
+        getSugarBagsPage
     }
 })

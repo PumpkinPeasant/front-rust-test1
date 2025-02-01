@@ -1,44 +1,76 @@
 <script setup lang="ts">
-import {useTodoListStore} from "~/stores/useTodoListStore";
-import CreateTodoPopUp from "~/components/popups/CreateTodoPopUp.vue";
-import ListCard from "~/components/todo/ListCard.vue";
+import ItemSlider from "~/components/general/ItemSlider.vue";
+import {useSugarBagsStore} from "~/stores/useSugarBagsStore";
+import Collection from "~/components/profile/Collection.vue";
+import {useCollectionStore} from "~/stores/useCollectionStore";
+import SugarBagCard from "~/components/general/SugarBagCard.vue";
 
-const listStore = useTodoListStore();
+const sugarBagsStore = useSugarBagsStore();
+const collectionStore = useCollectionStore();
 
-async function getTodos() {
-  await listStore.getAllLists();
+const sugarBagsPage = ref();
+
+async function getSugarBagsPage() {
+  sugarBagsPage.value = await sugarBagsStore.getSugarBagsPage();
 }
 
-async function deleteList(id: number) {
-  await listStore.deleteList(id).then(getTodos);
-}
-
-async function editList(args: object) {
-  await listStore.editList(args.id, args.title).then(getTodos);
+async function getAllCollections() {
+  await collectionStore.getAllCollections();
 }
 
 onBeforeMount(() => {
-  getTodos();
+  getSugarBagsPage();
+  getAllCollections();
 })
 
 </script>
 
 <template>
-  <v-window class="d-flex justify-center pa-5">
-    <h1 class="text-center">Мои списки</h1>
-    <div class="pa-5 ma-2">
-      <list-card
-          @delete="deleteList"
-          @edit="editList"
-          :todo="todo"
-          :index="index"
-          :key="index"
-          v-for="(todo, index) in listStore.todos"/>
-    </div>
-    <div class="d-flex justify-center">
-      <create-todo-pop-up/>
-    </div>
-  </v-window>
+  <v-container class="mt-2">
+    <v-row class="d-flex align-center justify-space-between ga-2 mb-2">
+      <v-text-field placeholder="Search" variant="outlined" rounded hide-details/>
+      <v-btn variant="text" icon="mdi-tune"/>
+    </v-row>
+    <v-row class="mb-2">
+      <v-card style="width: 100%">
+        <v-card-title>🔥Trending</v-card-title>
+        <v-card-subtitle>Most popular items in 30 days</v-card-subtitle>
+        <v-card-text>
+          <item-slider :data="sugarBagsPage">
+            <template #slider-item="{ item }">
+              <sugar-bag-card :id="item.modelId"/>
+            </template>
+          </item-slider>
+        </v-card-text>
+      </v-card>
+    </v-row>
+    <v-row class="mb-2">
+      <v-card style="width: 100%">
+        <v-card-title>⭐Collections</v-card-title>
+        <v-card-subtitle>User's custom collections</v-card-subtitle>
+        <v-card-text>
+          <item-slider :data="collectionStore.collections">
+            <template #slider-item="{ item }">
+              <collection :data="item"/>
+            </template>
+          </item-slider>
+        </v-card-text>
+      </v-card>
+    </v-row>
+    <v-row>
+      <v-card style="width: 100%">
+        <v-card-title>🍃New</v-card-title>
+        <v-card-subtitle>Newly added sugar bags</v-card-subtitle>
+        <v-card-text>
+          <item-slider :data="sugarBagsPage">
+            <template #slider-item="{ item }">
+              <sugar-bag-card :id="item.modelId"/>
+            </template>
+          </item-slider>
+        </v-card-text>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <style scoped>
