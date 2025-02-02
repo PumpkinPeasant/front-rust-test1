@@ -30,9 +30,7 @@ async function createCollection() {
       <v-btn
           v-bind="activatorProps"
           prepend-icon="mdi-plus"
-          variant="tonal"
-          size="large"
-          min-width="300px">
+          variant="tonal">
         Create
       </v-btn>
     </template>

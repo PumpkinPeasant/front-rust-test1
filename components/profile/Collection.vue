@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-card>
+  <v-card @click="router.push(`collection/${data.modelId}`)">
     <v-card-title>
       {{data.name}}
     </v-card-title>
