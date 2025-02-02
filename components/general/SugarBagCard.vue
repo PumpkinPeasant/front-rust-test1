@@ -2,6 +2,9 @@
 import {useSugarBagsStore} from "~/stores/useSugarBagsStore";
 import {base64} from "~/utils/base64";
 import {usePicturesStore} from "~/stores/usePicturesStore";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps({
   id: {type: String, required: true},
@@ -22,13 +25,17 @@ async function getSugarBag() {
 
 }
 
+function goToPage(){
+  router.push(`sugar/${sugarBagInfo.value?.modelId}`)
+}
+
 onMounted(() => {
   getSugarBag();
 });
 </script>
 
 <template>
-  <v-card color="grey" class="mb-2">
+  <v-card color="grey" class="mb-2" @click="goToPage">
     <v-card-title>
       {{ sugarBagInfo?.name }}
     </v-card-title>
