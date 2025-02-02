@@ -26,11 +26,25 @@ export const useCollectionStore = defineStore("collection", () => {
             .then(response => collections.value = response.data)
     }
 
+    async function addNewSugarBag(name, picture, collectionModelId){
+        const response = await axios.post('proxy/Collection/AddSugarBag',
+            {
+                "collectionModelId": collectionModelId[0],
+                "createSugarBagOptions": {
+                    "name": name,
+                    "picture": picture
+                }
+            }
+        )
+        return response.data.modelId;
+    }
+
     return {
         createCollection,
         getCollection,
         getAllCollections,
         collections,
-        currentCollection
+        currentCollection,
+        addNewSugarBag
     }
 })

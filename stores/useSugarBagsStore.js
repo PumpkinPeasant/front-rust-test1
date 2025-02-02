@@ -3,17 +3,13 @@ import axios from "axios";
 export const useSugarBagsStore = defineStore("sugarbags", () => {
 
     async function createSugarBag(name, picture) {
-        await axios.post('proxy/SugarBags/Create',
-
-            {
-                "createSugarBagOptions": {
-                    'name': name,
-                    'picture': picture,
-                }
+        const response = await axios.post('proxy/SugarBags/Create', {
+            "createSugarBagOptions": {
+                'name': name,
+                'picture': picture,
             }
-        ).then(response => {
-
-        })
+        });
+        return response.data.modelId;
     }
 
     async function getSugarBag(id) {
